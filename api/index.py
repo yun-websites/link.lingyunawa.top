@@ -6,7 +6,7 @@ from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
 from fastapi import FastAPI, Request
 from fastapi.responses import RedirectResponse, PlainTextResponse
 
-from routes import ROUTES
+from api.routes import ROUTES
 
 app = FastAPI(title="Link Redirect Service", docs_url=None, redoc_url=None)
 
