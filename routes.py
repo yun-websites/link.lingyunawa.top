@@ -12,6 +12,7 @@ ROUTES: dict[str, object] = {
     "ssf": {
         "eca": {
             "coding-2627": {
+                "materials": "https://rqssfz-my.sharepoint.com/:f:/g/personal/jim_lin_rqssfz_onmicrosoft_com/IgCDymkcDQabQIKaUuPSqdcYAXYYwCnO4FC7XNIa1kMkYPo?e=HbpxJZ",
                 "students": "https://rqssfz-my.sharepoint.com/:f:/g/personal/jim_lin_rqssfz_onmicrosoft_com/IgAPvsfUwBywRYVBeNn13shYATCDQC76n6p4RD2o7rNLytE?e=5apQdu",
             },
         },
