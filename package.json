@@ -1,19 +1,22 @@
 {
     "name": "link-redirect-server",
     "version": "1.0.0",
-    "private": true,
+    "packageManager": "pnpm@9.15.0",
     "description": "A configurable URL redirect server",
     "type": "module",
     "scripts": {
         "build": "tsc",
         "start": "node dist/server.js",
-        "dev": "tsx watch src/server.ts"
+        "dev": "tsx watch src/server.ts",
+        "vercel-build": "pnpm run build",
+        "typecheck:vercel": "tsc -p tsconfig.vercel.json"
     },
     "engines": {
         "node": ">=18"
     },
     "devDependencies": {
         "@types/node": "^22.10.0",
+        "@vercel/node": "^5.1.16",
         "tsx": "^4.19.2",
         "typescript": "^5.7.2"
     }

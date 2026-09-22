@@ -22,7 +22,19 @@ npm run dev
 PORT=8080 HOST=127.0.0.1 npm start
 ```
 
-## 配置路由
+## Vercel 部署
+
+项目已包含 [`api/[...path].ts`](./api/[...path].ts) 作为 Vercel Serverless Function，并通过 [`vercel.json`](./vercel.json) 将所有路径转发到该入口。
+
+部署到 Vercel 后，以下地址会根据配置进行重定向：
+
+```text
+https://你的域名/bilibili/space
+https://你的域名/ssf/eca/coding-2627/students
+```
+
+Vercel 部署不需要运行 `npm start`；Vercel 会自动识别 `api` 目录并执行 TypeScript 入口。
+
 
 编辑 [`src/routes.js`](./src/routes.js)，将叶子节点设置为目标 URL：
 
