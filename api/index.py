@@ -13,6 +13,7 @@ app = FastAPI(title="Link Redirect Service", docs_url=None, redoc_url=None)
 
 def resolve_target(path: str) -> str | None:
     """Resolve a slash-separated path to a configured URL."""
+    print(f"DEBUG - Resolving {path}")
     current: object = ROUTES
     for part in path.strip("/").split("/"):
         if not part:
@@ -21,6 +22,7 @@ def resolve_target(path: str) -> str | None:
             return None
         current = current[part]
 
+    print(f"DEBUG - Resolving {path} successful")
     return current if isinstance(current, str) else None
 
 
