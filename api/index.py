@@ -13,7 +13,6 @@ app = FastAPI(title="Link Redirect Service", docs_url=None, redoc_url=None)
 
 def resolve_target(path: str) -> str | None:
     """Resolve a slash-separated path to a configured URL."""
-    print(f"DEBUG - Resolving {path}")
     current: object = ROUTES
     for part in path.strip("/").split("/"):
         if not part:
@@ -22,7 +21,6 @@ def resolve_target(path: str) -> str | None:
             return None
         current = current[part]
 
-    print(f"DEBUG - Resolving {path} successful")
     return current if isinstance(current, str) else None
 
 
@@ -37,21 +35,19 @@ def append_query(target: str, request: Request) -> str:
     return urlunsplit(parsed._replace(query=urlencode(target_query + incoming_query)))
 
 
-# @app.api_route("/{path:path}", methods=["GET", "HEAD"])
-# async def redirect(request: Request, path: str):
-#     target = resolve_target(path)
-#     if target is None:
-#         return PlainTextResponse("Not Found", status_code=404)
-#     return RedirectResponse(append_query(target, request), status_code=302)
-
 @app.api_route("/{path:path}", methods=["GET", "HEAD"])
 async def redirect(request: Request, path: str):
-    return PlainTextResponse(
-        f"""
-path = {path!r}
-url = {str(request.url)!r}
-root_path = {request.scope.get("root_path")!r}
-"""
+    if path.startswith("api/index.py/"):
+        path = path.removeprefix("api/index.py/")
+
+    target = resolve_target(path)
+
+    if target is None:
+        return PlainTextResponse("Not Found", status_code=404)
+
+    return RedirectResponse(
+        append_query(target, request),
+        status_code=302,
     )
 
 @app.get("/")
