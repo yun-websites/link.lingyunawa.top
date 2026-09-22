@@ -37,13 +37,22 @@ def append_query(target: str, request: Request) -> str:
     return urlunsplit(parsed._replace(query=urlencode(target_query + incoming_query)))
 
 
+# @app.api_route("/{path:path}", methods=["GET", "HEAD"])
+# async def redirect(request: Request, path: str):
+#     target = resolve_target(path)
+#     if target is None:
+#         return PlainTextResponse("Not Found", status_code=404)
+#     return RedirectResponse(append_query(target, request), status_code=302)
+
 @app.api_route("/{path:path}", methods=["GET", "HEAD"])
 async def redirect(request: Request, path: str):
-    target = resolve_target(path)
-    if target is None:
-        return PlainTextResponse("Not Found", status_code=404)
-    return RedirectResponse(append_query(target, request), status_code=302)
-
+    return PlainTextResponse(
+        f"""
+path = {path!r}
+url = {str(request.url)!r}
+root_path = {request.scope.get("root_path")!r}
+"""
+    )
 
 @app.get("/")
 async def root():
